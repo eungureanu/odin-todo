@@ -1,3 +1,7 @@
+import './styling.css';
+import './createNewTask.js';
+export {Todo, createTodo, changeProperty, toggleStatus, deleteTodo};
+
 class Todo {
     constructor (id, title, description, duedate, priority, category){
         this.id = id;
@@ -12,8 +16,26 @@ class Todo {
 
 let categories = ["To Do", "Shopping", "Vacation"];
 const priority = [1, 2, 3];
-let allTodos = [];
+export let allTodos = [
+    {
+        title: "Finish Project Proposal",
+        description: "Complete the project proposal and submit it to the supervisor.",
+        duedate: "2023-08-15",
+        priority: "High",
+        category: "To Do",
+        isDone: false
+    },
+    {
+        title: "Buy Groceries",
+        description: "Purchase vegetables, fruits, and other essentials for the week.",
+        duedate: "2023-08-10",
+        priority: "Medium",
+        category: "To Do",
+        isDone: false
+    }
+];
 let id = 1;
+
 
 
     // {
@@ -100,6 +122,7 @@ let id = 1;
 function createTodo(title, description, duedate, priority, category){
     allTodos.push(new Todo(id, title, description, duedate, priority, category));
     id++;
+    console.log(allTodos);
     return allTodos;
 }
 
@@ -143,3 +166,5 @@ function editCategory(existingCategory){
 function deleteCategory(existingCategory){
     //code for deleting existign category
 }
+
+document.dispatchEvent(new Event('allTodosInitialized'));
