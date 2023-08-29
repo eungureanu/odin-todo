@@ -9,7 +9,6 @@
     <script defer src="main.js"></script>
     <div class="header">
         <h1>ToDo...ne!</h1>
-        <img alt="App Logo" />
     </div>
     <div class="page-body">
         <div class="sidebar">
@@ -19,52 +18,55 @@
                 <li>Category 3</li>
             </ul>
         </div>
-        <div class="content" id="todo-list">
-            <div class="item-card">
-                <h3>Item Title</h3>
-                <p>Item description goes here...</p>
-                <span>Due Date: 2023-08-15</span>
-                <span>Priority: High</span>
-                <span>Category: To Do</span>
+        <div class="todo-list" id="todo-list">
+            <!-- <div class="item-card" id="tralala1">
+                <input type="checkbox">
+                <div class="todo-title">Do this todo</div>
+                <div class="todo-details">This todo refers to that thing.</div>
+                <div class="todo-due">Due Date: 2023-08-15</div>
+                <div class="todo-prio">Priority: High</div>
+                <button class="todo-edit">Edit</button>
+                <button class="todo-delete">Delete</button>
             </div>
-            <div class="item-card">
-                <h3>Item Title</h3>
-                <p>Item description goes here...</p>
-                <span>Due Date: 2023-08-15</span>
-                <span>Priority: High</span>
-                <span>Category: To Do</span>
-            </div>
+            <div class="item-card todo-done" id="tralala2">
+                <input type="checkbox">
+                <div class="todo-title">Do this todo</div>
+                <div class="todo-details">This todo refers to that thing.</div>
+                <div class="todo-due">Due Date: 2023-08-15</div>
+                <div class="todo-prio">Priority: High</div>
+                <button class="todo-edit">Edit</button>
+                <button class="todo-delete">Delete</button>
+            </div> -->
         </div>
-        <button class="addTask-button" id="add-task-button">+</button>
-
-        <div class="modal" id="add-task-modal">
-            <form id="form-body">
-                <input type="text" id="title" name="title" placeholder = "Call Victor">
-    
-                <input type="text" id="description" name="description" placeholder = "Task description">
-
-                <label for="due-date">Due Date:</label>
-                <input type="date" id="due-date" name="duedate">
-    
-                <label for="prio">Priority</label>
-                <select name="priorities" id="prio">
-                    <option value="3">Low</option>
-                    <option value="2">Medium</option>
-                    <option value="1">High</option>
-                </select>    
-
-                <label for="category">Category</label>
-                <select name="categories" id="category">
-                    <option value="To Do">To Do</option>
-                </select>   
-    
-                <button type="button" id="new-task">Add</button>
-                <button type="button" id="cancel">Cancel</button>
-
-            </form>
-        </div>
-        <div class="" id="overlay"></div>
-        
+        <button class="add-todo-button" id="add-todo-button">+</button>
     </div>
+                    
+    <div class="modal" id="modal">
+        <form id="form-body">
+            <input type="text" id="title" name="title" placeholder="Call Victor">
+    
+            <input type="text" id="description" name="description" placeholder="Todo description">
+    
+            <label for="due-date">Due Date:</label>
+            <input type="date" id="due-date" name="duedate">
+    
+            <label for="prio">Priority</label>
+            <select name="priorities" id="prio">
+                <option value="3">Low</option>
+                <option value="2">Medium</option>
+                <option value="1">High</option>
+            </select>
+    
+            <label for="category">Category</label>
+            <select name="categories" id="category">
+                <option value="To Do">To Do</option>
+            </select>
+    
+            <button type="button" id="submit-todo">Add</button>
+            <button type="button" id="cancel">Cancel</button>
+    
+        </form>
+    </div>
+    <div class="" id="overlay"></div>
 </body>
 </html>
