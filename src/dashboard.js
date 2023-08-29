@@ -1,4 +1,96 @@
 import { TodoList } from "./todoList";
+
+export class Dashboard {
+    constructor(){
+        this.todoListInstance = new TodoList;
+
+        this.todoList = document.getElementById("todo-list");
+        this.addTodoButton = document.getElementById("add-todo-button");
+        this.modal = document.getElementById("modal");
+        this.overlay = document.getElementById("overlay");
+        this.submitTodo = document.getElementById("submit-todo");
+        this.cancel = document.getElementById("cancel");
+
+        this.formNewTodo = document.getElementById("form-body");
+
+        /* Inside the event handler functions, 'this' refers to the element that triggered the event, not the Dashboard instance. 
+        Another option is to bind the methods to the class instance e.g. add this in the constructor 'this.openModal = this.openModal.bind(this)'; */
+        this.addTodoButton.addEventListener("click", () => this.openModal());
+        this.cancel.addEventListener("click", () => this.closeModal());
+        this.submitTodo.addEventListener("click", () => {
+            this.formTitle = document.getElementById("title").value;
+            this.formDetails = document.getElementById("description").value;
+            this.formDueDate = document.getElementById("due-date").value;
+            this.formPriority = document.getElementById("prio").value;
+            this.formCategory = document.getElementById("category").value;
+            this.currentTodos = this.todoListInstance.createTodo(this.formTitle, this.formDetails, this.formDueDate, this.formPriority, this.formCategory);
+            this.renderDashboard(this.currentTodos);
+            this.closeModal();
+        })
+    }
+
+    openModal(){
+        this.modal.classList.add("active");
+        this.overlay.classList.add("active");
+    }
+
+    closeModal() {
+        this.formNewTodo.reset();
+        this.modal.classList.remove("active");
+        this.overlay.classList.remove("active");
+    }
+
+    createCard(object){
+
+        this.todoCard = document.createElement("div");
+
+        this.todoStatus = document.createElement("input");
+        this.todoTitle = document.createElement("div");
+        this.todoDetails = document.createElement("div");
+        this.todoDue = document.createElement("div");
+        this.todoPrio = document.createElement("div");
+        this.todoEdit = document.createElement("button");
+        this.todoDelete = document.createElement("button");
+
+        this.todoList.appendChild(this.todoCard);
+        this.todoCard.append(this.todoStatus, this.todoTitle, this.todoDetails, this.todoDue, this.todoPrio, this.todoEdit, this.todoDelete);
+        this.todoCard.classList.add("item-card");
+        this.todoCard.setAttribute("id", object.id);
+
+        this.todoStatus.type = "checkbox";
+
+        this.todoTitle.classList.add("todo-title");
+        this.todoTitle.innerText = object.title;
+
+        this.todoDetails.classList.add("todo-details");
+        this.todoDetails.innerText = object.details;
+
+        this.todoDue.classList.add("todo-due");
+        this.todoDue.innerText = "Due date: " + object.duedate;
+
+        this.todoPrio.classList.add("todo-prio");
+        this.todoPrio.innerText = "Priority: " + object.priority;
+
+        this.todoEdit.classList.add("todo-edit");
+        this.todoEdit.innerText = "Edit";
+
+        this.todoDelete.classList.add("todo-delete");
+        this.todoDelete.innerText = "Delete";
+
+        return this.todoCard;
+    }
+
+    renderDashboard(todoArray){
+        this.todoList.innerHTML = ""; // Clear existing content 
+        todoArray.forEach(object => {
+            this.todoCard = this.createCard(object);
+            this.todoList.appendChild(this.todoCard);
+        });
+    }
+}
+
+/* Using regular variables and functions
+
 export {openModal, closeModal, createCard, renderDashboard};
 
 const todoListInstance = new TodoList;
@@ -11,12 +103,6 @@ const submitTodo = document.getElementById("submit-todo");
 const cancel = document.getElementById("cancel");
 
 const formNewTodo = document.getElementById("form-body");
-
-todoList.addEventListener("click", function(event){
-    if (event.target.type == "checkbox"){
-        console.log("You are my tralala");
-    }
-})
 
 addTodoButton.addEventListener("click", openModal);
 cancel.addEventListener("click", closeModal);
@@ -89,166 +175,4 @@ function renderDashboard(todoArray){
         todoList.appendChild(todoCard);
     });
 }
-
-
-
-// Event listener functions
-function handleCheckboxClick(event) {
-    const checkbox = event.target;
-    const itemCard = checkbox.closest('.item-card'); // Find the nearest parent with class "item-card"
-    
-    if (itemCard) {
-        const cardId = itemCard.id; // Get the ID of the parent item-card
-        // Use the cardId to identify the corresponding object from your data
-        // Add your logic here
-        console.log("Checkbox clicked for item with ID:", cardId);
-    }
-    
-    // Rest of the handling logic
-}
-
-function handleDeleteClick(event) {
-    const deleteButton = event.target;
-    const itemCard = deleteButton.closest('.item-card'); // Find the nearest parent with class "item-card"
-    
-    if (itemCard) {
-        const cardId = itemCard.id; // Get the ID of the parent item-card
-        // Use the cardId to identify the corresponding object from your data
-        // Add your logic here
-        console.log("Delete button clicked for item with ID:", cardId);
-    }
-    
-    // Rest of the handling logic
-}
-
-function changeStatus(){
-    document.getElementById("myLI").onclick = function(e){
-        alert(e.target.parentNode.id);
-      }
-}
-
-// import { Todo } from "./todo";
-// import { TodoList } from "./todoList";
-
-// export class Dashboard {
-//     constructor(){
-
-//         this.allTodos = new TodoList;
-
-//         this.todoList = document.getElementById("todo-list");
-//         this.addTodoButton = document.getElementById("add-todo-button");
-//         this.modal = document.getElementById("modal");
-//         this.overlay = document.getElementById("overlay");
-//         this.submitTodo = document.getElementById("submit-todo");
-//         this.cancel = document.getElementById("cancel");
-
-//         this.formNewTodo = document.getElementById("form-body");
-
-//         this.addTodoButton.addEventListener("click", () => this.openModal()); // Inside the event handler functions, 'this' refers to the element that triggered the event, not the Dashboard instance. Another option is to bind the methods to the class instance e.g. add this in the constructor 'this.openModal = this.openModal.bind(this)';
-//         this.cancel.addEventListener("click", () => this.closeModal());
-//         this.submitTodo.addEventListener("click", () => {this.renderDashboard(this.allTodos.todoList), this.closeModal()});
-//     }
- 
-//     openModal(){
-//         this.modal.classList.add("active");
-//         this.overlay.classList.add("active");
-//     }
-
-//     closeModal() {
-//         this.formNewTodo.reset();
-//         this.modal.classList.remove("active");
-//         this.overlay.classList.remove("active");
-//     }
-
-//     createCard(object){
-
-//         this.todoCard = document.createElement("div");
-    
-//         this.todoStatus = document.createElement("input");
-//         this.todoTitle = document.createElement("div");
-//         this.todoDetails = document.createElement("div");
-//         this.todoDue = document.createElement("div");
-//         this.todoPrio = document.createElement("div");
-//         this.todoEdit = document.createElement("button");
-//         this.todoDelete = document.createElement("button");
-
-//         this.formTitle = document.getElementById("title").value;
-//         this.formDetails = document.getElementById("description").value;
-//         this.formDueDate = document.getElementById("due-date").value;
-//         this.formPriority = document.getElementById("prio").value;
-//         this.formCategory = document.getElementById("category").value;
-    
-//         this.todoList.appendChild(this.todoCard);
-//         this.todoCard.append(this.todoStatus, this.todoTitle, this.todoDetails, this.todoDue, this.todoPrio, this.todoEdit, this.todoDelete);
-//         this.todoCard.classList.add("item-card");
-     
-//         this.todoStatus.type = "checkbox";
-    
-//         this.todoTitle.classList.add("todo-title");
-//         this.todoTitle.innerText = this.formTitle;
-    
-//         this.todoDetails.classList.add("todo-details");
-//         this.todoDetails.innerText = this.formDetails;
-    
-//         this.todoDue.classList.add("todo-due");
-//         this.todoDue.innerText = "Due date: " + this.formDueDate;
-    
-//         this.todoPrio.classList.add("todo-prio");
-//         this.todoPrio.innerText = "Priority: " + this.formPriority;
-    
-//         this.todoEdit.classList.add("todo-edit");
-//         this.todoEdit.innerText = "Edit";
-    
-//         this.todoDelete.classList.add("todo-delete");
-//         this.todoDelete.innerText = "Delete";
-        
-//         return this.todoCard;
-//     }
-
-
-//     renderDashboard(currentTodos){
-//         const newTodo = this.allTodos.createTodo(this.formTitle, this.formDetails, this.formDueDate, this.formPriority, this.formCategory);
-//         this.todoList.innerHTML = ""; // Clear existing content 
-//         currentTodos.forEach(object => {
-//             this.todoCard = this.createCard(object);
-//             this.todoList.appendChild(this.todoCard);
-//         });
-//     }
-// }
-
-
-// class GameView {
-//     renderBoard(gameState) {
-//         for (i = 0...)
-//             for (j =...) {
-//             }
-//     }
-
-//     onCellClick() {
-//         // dispatch cellclick event 
-//     }
-// }
-
-// class GameController() {
-//     onPlayerMove(idx, symbol) {
-//         //validate and update 
-//         if (this.moveIsValid()) {
-//             this.updateGameState()
-//             this.gameView.renderBoard(gameState);
-//         }
-//     }
-// }
-
-// gameState = [
-//     {
-//         symbol: 'x' // or 0 // or '' 
-//     },
-//     {
-//         symbol: '0' // or 0 // or '' 
-//     },
-//     {
-//         symbol: 'x' // or 0 // or '' 
-//     },
-// ]
-
- 
+*/

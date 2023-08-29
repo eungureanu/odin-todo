@@ -1,9 +1,10 @@
 import './styling.css';
 import { TodoList } from "./todoList.js";
-import {openModal, closeModal, createCard, renderDashboard} from "./dashboard.js";
+// import {openModal, closeModal, createCard, renderDashboard} from "./dashboard.js";
+import { Dashboard } from './dashboard';
 
 const myTodoList = new TodoList;
-// const dashboard = new Dashboard;
+const dashboard = new Dashboard;
 const todo1 = myTodoList.createTodo("Finish Project Proposal", "Complete the project proposal and submit it to the supervisor. Complete the project proposal and submit it to the supervisor. Complete the project proposal and submit it to the supervisor.", "2023-08-15", "High", "To Do");
 const todo2 = myTodoList.createTodo("Buy Groceries", "Purchase vegetables, fruits, and other essentials for the week.", "2023-08-10", "Medium", "To Do");
 
