@@ -101,11 +101,13 @@ li{
 }
 
 .todo-title {
+    cursor: text;
     font-weight: bold;
     margin: 10px 10px;
 }
 
 .todo-details {
+    cursor: text;
     margin: 10px 20px;
 }
 

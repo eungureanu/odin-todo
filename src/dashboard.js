@@ -45,17 +45,22 @@ export class Dashboard {
         this.todoCard = document.createElement("div");
 
         this.todoStatus = document.createElement("input");
+
         this.todoTitle = document.createElement("div");
         this.todoDetails = document.createElement("div");
         this.todoDue = document.createElement("div");
         this.todoPrio = document.createElement("div");
+        
         this.todoEdit = document.createElement("button");
+
         this.todoDelete = document.createElement("button");
+        this.todoDelete.addEventListener("click", (event) => { this.deleteCard(event); })
+
 
         this.todoList.appendChild(this.todoCard);
         this.todoCard.append(this.todoStatus, this.todoTitle, this.todoDetails, this.todoDue, this.todoPrio, this.todoEdit, this.todoDelete);
         this.todoCard.classList.add("item-card");
-        this.todoCard.setAttribute("id", object.id);
+        this.todoCard.setAttribute("data-itemid", object.id);
 
         this.todoStatus.type = "checkbox";
 
@@ -78,6 +83,22 @@ export class Dashboard {
         this.todoDelete.innerText = "Delete";
 
         return this.todoCard;
+    }
+
+    deleteCard(event){
+        if (event.target.className == "todo-delete"){
+            const parentCard = event.target.closest(".item-card");
+            const itemID = parentCard.dataset.itemid;
+            const todoArray = this.currentTodos;
+
+            todoArray.forEach(object => {
+                if (object.id == itemID){
+                    this.todoList.removeChild(parentCard);
+                    this.currentTodos = this.todoListInstance.deleteTodo(object.id);
+                }        
+            })
+        }
+        this.renderDashboard(this.currentTodos);
     }
 
     renderDashboard(todoArray){
