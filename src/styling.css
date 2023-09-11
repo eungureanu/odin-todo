@@ -111,6 +111,19 @@ li{
     margin: 10px 20px;
 }
 
+div[contenteditable="true"]:focus{
+    border: 2px solid #e5e5e5; /* Light grey border */
+    background-color: #fff; /* White background color */
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.7); /* Pink shadow with transparency */
+    outline: none; /* Remove the default focus outline */
+  
+    /* Text color */
+    color: #333; /* Dark grey text color */
+  
+    /* Caret color (cursor color) */
+    caret-color: #ff69b4; /* Pink caret color */
+}
+
 .todo-due, .todo-prio {
     margin: 10px 20px;
 }
